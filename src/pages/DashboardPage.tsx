@@ -115,7 +115,7 @@ doc.line(20, 165, 190, 165);
 doc.setFontSize(10);
 doc.setTextColor(120);
 
-doc.text("Built on Arc Testnet Commerce", 20, 178);
+
 doc.text("Built on Arc Testnet", 20, 185);
 
 doc.text(
