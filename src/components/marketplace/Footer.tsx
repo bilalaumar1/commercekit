@@ -206,7 +206,7 @@ export default function Footer() {
           </p>
 
           <p>
-            Powered by Arc Testnet
+            Built on Arc Testnet 
           </p>
         </div>
       </Container>

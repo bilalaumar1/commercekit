@@ -29,7 +29,7 @@ export default function Hero() {
 
             <p className="mt-8 max-w-2xl text-lg text-gray-400">
               Discover products, creators, and digital assets with seamless
-              wallet-native payments powered by Arc Testnet.
+              wallet-native payments Built on Arc Testnet Testnet.
             </p>
 
             <div className="mt-10 flex gap-4">
