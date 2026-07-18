@@ -8,13 +8,13 @@ export default function Logo() {
     >
       <img
         src="/logo.png"
-        alt="Arc Commerce"
-        className="h-16 w-16 object-contain shrink-0"
+        alt="CommerceKit"
+        className="h-24 w-24 object-contain shrink-0"
       />
 
       <div className="leading-tight">
         <h1 className="text-2xl font-bold text-white">
-          Arc Commerce
+          CommerceKit
         </h1>
 
         <p className="text-sm text-gray-400">

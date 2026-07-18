@@ -18,7 +18,7 @@ export default function Hero() {
           {/* LEFT SIDE */}
           <div>
             <p className="mb-4 font-semibold text-blue-400">
-              Arc Commerce
+              CommerceKit
             </p>
 
             <h1 className="max-w-5xl text-6xl font-bold leading-tight text-white">

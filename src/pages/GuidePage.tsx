@@ -27,12 +27,12 @@ export default function GuidePage() {
   >
     <img
       src="/logo.png"
-      alt="Arc Commerce"
-      className="h-11 w-11 object-contain"
+      alt="CommerceKit"
+      className="h-14 w-14 object-contain shrink-0"
     />
 
     <h2 className="text-2xl font-bold text-white">
-      Arc Commerce
+      CommerceKit
     </h2>
   </Link>
 
@@ -50,13 +50,13 @@ export default function GuidePage() {
   </span>
 
   <span className="font-medium text-white">
-    Guide
+    Guid
   </span>
 
 </nav>
 
   <p className="font-semibold uppercase tracking-[0.2em] text-blue-400">
-    ARC COMMERCE GUIDE
+    CommerceKit GUIDE
   </p>
 
           <h1 className="mt-6 max-w-5xl text-6xl font-bold leading-tight">
@@ -66,7 +66,7 @@ export default function GuidePage() {
           </h1>
 
           <p className="mt-8 max-w-3xl text-xl leading-9 text-gray-400">
-            Learn how Arc Commerce was designed and built using
+            Learn how CommerceKit was designed and built using
             React, TypeScript, TailwindCSS, Wagmi and Arc Testnet.
             This guide explains the architecture, workflow and
             development process behind the project.
@@ -108,11 +108,11 @@ export default function GuidePage() {
             </p>
 
             <h2 className="mt-5 text-5xl font-bold">
-              What is Arc Commerce?
+              What is CommerceKit?
             </h2>
 
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-400">
-              Arc Commerce demonstrates how digital products can be
+              CommerceKit demonstrates how digital products can be
               sold through a modern wallet-native marketplace powered
               by Arc Testnet and USDC.
             </p>
@@ -185,7 +185,7 @@ export default function GuidePage() {
       </p>
 
       <h2 className="mt-5 text-5xl font-bold">
-        How Arc Commerce Works
+        How CommerceKit Works
       </h2>
 
       <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-400">
@@ -380,7 +380,7 @@ export default function GuidePage() {
     </h2>
 
     <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-400">
-      Arc Commerce combines modern frontend technologies with
+      CommerceKit combines modern frontend technologies with
       Arc Testnet infrastructure to deliver a fast, secure and
       wallet-native marketplace experience.
     </p>
@@ -457,7 +457,7 @@ export default function GuidePage() {
     </h2>
 
     <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-400">
-      Arc Commerce follows a modular architecture where pages,
+      CommerceKit follows a modular architecture where pages,
       reusable components and blockchain utilities are separated
       for maintainability and future expansion.
     </p>
@@ -553,7 +553,7 @@ export default function GuidePage() {
     </h2>
 
     <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-400">
-      Every interaction inside Arc Commerce follows a simple,
+      Every interaction inside CommerceKit follows a simple,
       intuitive and wallet-native experience from product
       discovery to ownership.
     </p>
@@ -606,7 +606,7 @@ export default function GuidePage() {
     </h2>
 
     <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-400">
-      Arc Commerce was built on Arc Testnet to demonstrate how
+      CommerceKit was built on Arc Testnet to demonstrate how
       wallet-native commerce can deliver a modern, seamless and
       developer-friendly experience.
     </p>
@@ -685,7 +685,7 @@ export default function GuidePage() {
     </h2>
 
     <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-400">
-      Arc Commerce is designed with future expansion in mind.
+      CommerceKit is designed with future expansion in mind.
       The current marketplace is only the first milestone.
     </p>
 

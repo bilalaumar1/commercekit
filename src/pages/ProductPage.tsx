@@ -157,7 +157,7 @@ export default function ProductPage() {
 
                 <div>
                   <h3 className="text-xl font-semibold">
-                    Arc Commerce Studio
+                    CommerceKit Studio
                   </h3>
 
                   <p className="mt-1 text-gray-400">

@@ -38,13 +38,13 @@ export default function MarketplacePage() {
         <div className="mb-6">
           <div className="flex items-center gap-3">
             <img
-              src="/logo.png"
-              alt="Arc Commerce"
-              className="h-11 w-11 object-contain"
-            />
+  src="/logo.png"
+  alt="CommerceKit"
+  className="h-14 w-14 object-contain shrink-0"
+/>
 
             <h2 className="text-2xl font-bold text-white">
-              Arc Commerce
+              CommerceKit
             </h2>
           </div>
 

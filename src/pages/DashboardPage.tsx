@@ -27,13 +27,13 @@ const downloadReceipt = async (purchase: any) => {
 
   doc.setTextColor(255, 255, 255);
   doc.setFont("helvetica", "bold");
-  doc.addImage("/logo.png", "PNG", 20, 9, 14, 14);
+  doc.addImage("/logo.png", "PNG", 20, 10, 20, 20);
   doc.setFontSize(24);
-  doc.text("Arc Commerce", 36, 18);
+  doc.text("CommerceKit", 36, 18);
 
   doc.setFontSize(12);
-  doc.setFont("helvetica", "normal");
-  doc.text("Digital Purchase Receipt", 20, 28);
+doc.setTextColor(255, 255, 255);
+doc.text("Digital Purchase Receipt", 37, 24);
 
   // Status
   doc.setFillColor(34, 197, 94);
@@ -161,12 +161,12 @@ doc.text(
           <div className="flex items-center gap-3">
             <img
               src="/logo.png"
-              alt="Arc Commerce"
-              className="h-11 w-11 object-contain"
+              alt="CommerceKit"
+              className="h-14 w-14 object-contain shrink-0"
             />
 
             <h2 className="text-2xl font-bold text-white">
-              Arc Commerce
+              CommerceKit
             </h2>
           </div>
 
