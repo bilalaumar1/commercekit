@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { ShoppingBag, LayoutDashboard } from "lucide-react";
+import { ShoppingBag, LayoutDashboard, Menu } from "lucide-react";
 
 import Container from "./Container";
 import Logo from "./Logo";
@@ -19,7 +19,7 @@ export default function Navbar() {
         {/* Logo */}
         <Logo />
 
-        {/* Navigation */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8 text-sm">
           <NavLink to="/" end className={navClass}>
             Home
@@ -35,7 +35,7 @@ export default function Navbar() {
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <NavLink
             to="/marketplace"
             className={({ isActive }) =>
@@ -50,13 +50,20 @@ export default function Navbar() {
           <NavLink
             to="/dashboard"
             className={({ isActive }) =>
-              isActive
-                ? "text-blue-400"
-                : "text-gray-300 transition hover:text-white"
+              `${
+                isActive
+                  ? "text-blue-400"
+                  : "text-gray-300 hover:text-white"
+              } hidden md:block transition`
             }
           >
             <LayoutDashboard size={22} />
           </NavLink>
+
+          {/* Mobile Menu Icon */}
+          <button className="text-gray-300 transition hover:text-white md:hidden">
+            <Menu size={24} />
+          </button>
 
           <ConnectWallet />
         </div>

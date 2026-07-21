@@ -26,19 +26,36 @@ export default function ConnectWallet() {
         const ready = mounted;
         const connected = ready && account && chain;
 
-        return (
-          <>
-            {!connected ? (
-              <button
-                onClick={openConnectModal}
-                className="rounded-xl bg-blue-600 px-6 py-3 font-semibold transition hover:bg-blue-500"
-              >
+        if (!connected) {
+          return (
+            <button
+              onClick={openConnectModal}
+              className="
+                rounded-xl
+                bg-blue-600
+                px-3 py-2
+                text-sm
+                font-semibold
+                transition
+                hover:bg-blue-500
+                md:px-6 md:py-3 md:text-base
+              "
+            >
+              <span className="hidden sm:inline">
                 Connect Wallet
-              </button>
-            ) : (
-              <ConnectButton />
-            )}
-          </>
+              </span>
+
+              <span className="sm:hidden">
+                Connect
+              </span>
+            </button>
+          );
+        }
+
+        return (
+          <div className="scale-90 md:scale-100 origin-right">
+            <ConnectButton />
+          </div>
         );
       }}
     </ConnectButton.Custom>
