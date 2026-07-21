@@ -1,24 +1,45 @@
 import { Link } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { jsPDF } from "jspdf";
 import QRCode from "qrcode";
 import Container from "../components/layout/Container";
 import { getPurchases } from "../lib/storage";
-
+import { products } from "../lib/products";
+import { ethers } from "ethers";
+import {
+  CONTRACT_ADDRESS,
+  CONTRACT_ABI,
+} from "../contracts/CommerceKitAchievements";
 export default function DashboardPage() {
   const { address } = useAccount();
 
+  const [wishlist, setWishlist] = useState<any[]>([]);
+const [alreadyMinted, setAlreadyMinted] = useState(false);
   const purchases = address
     ? getPurchases(address)
     : [];
+
+  useEffect(() => {
+    const key = address
+      ? `wishlist_${address}`
+      : "wishlist_guest";
+
+    const items = JSON.parse(
+      localStorage.getItem(key) || "[]"
+    );
+
+    setWishlist(items);
+  }, [address]);
+
 
   const totalSpent = useMemo(() => {
     return purchases.reduce((total, purchase) => {
       return total + Number(purchase.price.split(" ")[0]);
     }, 0);
   }, [purchases]);
-const downloadReceipt = async (purchase: any) => {
+
+  const downloadReceipt = async (purchase: any) => {
   const doc = new jsPDF();
 
   // Header
@@ -152,6 +173,112 @@ doc.text(
 );
   doc.save(`${purchase.title}-Receipt.pdf`);
 };
+const nextReward = useMemo(() => {
+  if (purchases.length >= 6) {
+    return {
+      title: "Genesis NFT",
+      description: "You have unlocked the Genesis NFT.",
+      button: "Mint NFT",
+      eligible: true,
+    };
+  }
+
+  if (purchases.length >= 5) {
+    return {
+      title: "Builder NFT",
+      description: "You have unlocked the Builder NFT.",
+      button: "Mint NFT",
+      eligible: true,
+    };
+  }
+
+  if (purchases.length >= 3) {
+    return {
+      title: "Explorer NFT",
+      description: "You have unlocked the Explorer NFT.",
+      button: "Mint NFT",
+      eligible: true,
+    };
+  }
+
+  return {
+    title: "Explorer NFT",
+    description: `Buy ${3 - purchases.length} more product${
+      3 - purchases.length > 1 ? "s" : ""
+    } to unlock Explorer.`,
+    button: "Browse Marketplace",
+    eligible: false,
+  };
+}, [purchases]);
+async function mintAchievement() {
+  try {
+    if (!window.ethereum) {
+      alert("Please install MetaMask.");
+      return;
+    }
+
+    const provider = new ethers.BrowserProvider(window.ethereum);
+
+    const signer = await provider.getSigner();
+
+    const contract = new ethers.Contract(
+      CONTRACT_ADDRESS,
+      CONTRACT_ABI,
+      signer
+    );
+
+    let tx;
+
+if (purchases.length >= 6) {
+  tx = await contract.mintGenesis();
+} else if (purchases.length >= 5) {
+  tx = await contract.mintBuilder();
+} else if (purchases.length >= 3) {
+  tx = await contract.mintExplorer();
+} else {
+  alert("You are not eligible yet.");
+  return;
+}
+
+    await tx.wait();
+
+    alert("NFT Minted Successfully!");
+  } catch (err) {
+    console.error(err);
+    alert("Mint failed.");
+  }
+}
+useEffect(() => {
+  async function checkMintStatus() {
+    if (!address) return;
+
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+
+      const contract = new ethers.Contract(
+        CONTRACT_ADDRESS,
+        CONTRACT_ABI,
+        provider
+      );
+
+      let minted = false;
+
+      if (purchases.length >= 6) {
+        minted = await contract.hasGenesis(address);
+      } else if (purchases.length >= 5) {
+        minted = await contract.hasBuilder(address);
+      } else if (purchases.length >= 3) {
+        minted = await contract.hasExplorer(address);
+      }
+
+      setAlreadyMinted(minted);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  checkMintStatus();
+}, [address, purchases.length]);
   return (
     <section className="min-h-screen bg-[#050816] pt-6 pb-20 text-white">
       <Container>
@@ -239,7 +366,117 @@ doc.text(
             </h2>
           </div>
         </div>
+<div className="mt-12 rounded-3xl border border-white/10 bg-white/5 p-8">
 
+  <div className="flex items-center justify-between">
+
+    <div>
+      <h2 className="text-3xl font-bold">
+        Commerce Journey
+      </h2>
+
+      <p className="mt-2 text-gray-400">
+        Unlock achievements and exclusive rewards as you grow your collection.
+      </p>
+    </div>
+
+    <span className="rounded-full bg-blue-500/20 px-4 py-2 text-blue-300">
+      {purchases.length} / 6 Products
+    </span>
+
+  </div>
+
+  <div className="mt-8">
+
+    <div className="mb-3 flex justify-between">
+
+      <span className="text-gray-400">
+        Overall Progress
+      </span>
+
+      <span>
+        {Math.min(purchases.length, 6)} / 6
+      </span>
+
+    </div>
+
+    <div className="h-5 overflow-hidden rounded-full bg-[#111827] border border-white/10">
+
+      <div
+        className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 shadow-[0_0_20px_rgba(59,130,246,0.6)] transition-all duration-700"
+        style={{
+          width: `${Math.min((purchases.length / 6) * 100, 100)}%`,
+        }}
+      />
+
+    </div>
+
+  </div>
+<div className="mt-8 grid gap-6 lg:grid-cols-2">
+
+  <div className="rounded-2xl border border-white/10 bg-[#0B1220] p-6">
+
+    <p className="text-sm text-gray-400">
+      Current Level
+    </p>
+
+    <h3 className="mt-2 text-3xl font-bold text-white">
+      {purchases.length >= 6
+        ? "Genesis"
+        : purchases.length >= 5
+        ? "Builder"
+        : purchases.length >= 3
+        ? "Explorer"
+        : "Starter"}
+    </h3>
+
+    <p className="mt-4 text-gray-400">
+      Keep purchasing products to unlock new achievements and exclusive NFT rewards.
+    </p>
+
+  </div>
+
+  <div className="rounded-2xl border border-blue-500/20 bg-blue-500/5 p-6">
+
+  <p className="text-sm text-blue-300">
+    Next Reward
+  </p>
+
+  <h3 className="mt-2 text-2xl font-bold">
+    {nextReward.title}
+  </h3>
+
+  <p className="mt-4 text-gray-400">
+    {nextReward.description}
+  </p>
+
+  {nextReward.eligible ? (
+  alreadyMinted ? (
+    <button
+      disabled
+      className="mt-6 inline-flex cursor-not-allowed rounded-xl bg-gray-600 px-5 py-3 font-medium text-white"
+    >
+      ✓ Already Minted
+    </button>
+  ) : (
+    <button
+      onClick={mintAchievement}
+      className="mt-6 inline-flex rounded-xl bg-green-600 px-5 py-3 font-medium text-white hover:bg-green-500"
+    >
+      {nextReward.button}
+    </button>
+  )
+) : (
+    <Link
+      to="/marketplace"
+      className="mt-6 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-500"
+    >
+      {nextReward.button}
+    </Link>
+  )}
+</div>
+</div>
+</div>
         {/* Purchase History */}
         <div className="mt-12 rounded-3xl border border-white/10 bg-white/5 p-8">
           <h2 className="mb-8 text-3xl font-bold">
@@ -289,7 +526,68 @@ doc.text(
             </div>
           )}
         </div>
+{/* Wishlist */}
+<div className="mt-12 rounded-3xl border border-white/10 bg-white/5 p-8">
+  <h2 className="mb-8 text-3xl font-bold">
+    Wishlist
+  </h2>
 
+  {wishlist.length === 0 ? (
+    <p className="text-gray-400">
+      Your wishlist is empty.
+    </p>
+  ) : (
+    <div className="grid gap-5 md:grid-cols-2">
+      {wishlist.map((item: any) => (
+        <div
+          key={item.id}
+          className="rounded-2xl border border-white/10 bg-[#0B1020] p-6"
+        >
+          <h3 className="text-xl font-semibold">
+            {item.title}
+          </h3>
+
+          <p className="mt-2 text-gray-400">
+            {item.price}
+          </p>
+
+          <div className="mt-6 flex gap-3">
+
+            <Link
+              to={`/product/${item.id}`}
+              className="rounded-xl bg-blue-600 px-5 py-2 text-sm font-medium transition hover:bg-blue-500"
+            >
+              View Product
+            </Link>
+
+            <button
+              onClick={() => {
+                const updated = wishlist.filter(
+                  (p: any) => p.id !== item.id
+                );
+
+                setWishlist(updated);
+
+                const key = address
+                  ? `wishlist_${address}`
+                  : "wishlist_guest";
+
+                localStorage.setItem(
+                  key,
+                  JSON.stringify(updated)
+                );
+              }}
+              className="rounded-xl border border-red-500 px-5 py-2 text-sm text-red-400 transition hover:bg-red-500/10"
+            >
+              Remove
+            </button>
+
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
         {/* Owned Products */}
         <div className="mt-12 rounded-3xl border border-white/10 bg-white/5 p-8">
           <h2 className="mb-8 text-3xl font-bold">
@@ -324,6 +622,24 @@ doc.text(
 >
   Download Receipt
 </button>
+{purchase.id === "arc-house-companion" ? (
+  <a
+    href="https://arc-house-companion.vercel.app/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="ml-3 rounded-xl border border-blue-500 px-5 py-2 text-sm font-medium text-blue-400 transition hover:bg-blue-500/10"
+  >
+    Open Website
+  </a>
+) : (
+  <a
+    href={products.find((p) => p.id === purchase.id)?.downloadUrl}
+    download
+    className="ml-3 rounded-xl border border-green-500 px-5 py-2 text-sm font-medium text-green-400 transition hover:bg-green-500/10"
+  >
+    Download Product
+  </a>
+)}
                   </div>
                 </div>
               ))}

@@ -25,7 +25,7 @@ export const arcTestnet = defineChain({
 });
 
 export const config = getDefaultConfig({
-  appName: "Arc Commerce",
+  appName: "CommerceKit",
   projectId: "6a5d8af912406dacd02c12c0358a5037",
   chains: [arcTestnet],
   transports: {

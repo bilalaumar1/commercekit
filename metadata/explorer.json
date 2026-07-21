@@ -1,0 +1,15 @@
+{
+  "name": "CommerceKit Explorer",
+  "description": "Awarded to users who purchase 3 products on CommerceKit.",
+  "image": "https://raw.githubusercontent.com/bilalaumar1/commercekit-nfts/main/explorer.png",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Requirement",
+      "value": "3 Products"
+    }
+  ]
+}

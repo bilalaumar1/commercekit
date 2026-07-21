@@ -18,7 +18,7 @@ export default function FeaturedProducts() {
           </h2>
 
           <p className="mt-4 text-gray-400">
-            Discover the most popular products on Arc Commerce.
+            Discover the most popular products on CommerceKit.
           </p>
 
         </div>

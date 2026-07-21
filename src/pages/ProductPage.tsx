@@ -1,13 +1,32 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useAccount } from "wagmi";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
 import Container from "../components/layout/Container";
 import { products } from "../lib/products";
 
 export default function ProductPage() {
   const navigate = useNavigate();
+  const { address } = useAccount();
   const { id } = useParams();
 
   const product = products.find((p) => p.id === id);
+  const wishlistKey = address
+  ? `wishlist_${address}`
+  : "wishlist_guest";
+const [isWishlisted, setIsWishlisted] = useState(false);
 
+useEffect(() => {
+  if (!product) return;
+
+  const wishlist = JSON.parse(
+    localStorage.getItem(wishlistKey) || "[]"
+  );
+
+  setIsWishlisted(
+    wishlist.some((item: any) => item.id === product.id)
+  );
+}, [product]);
   if (!product) {
     return (
       <section className="min-h-screen flex items-center justify-center bg-[#050816] text-white">
@@ -15,7 +34,41 @@ export default function ProductPage() {
       </section>
     );
   }
+function handleWishlist() {
+  if (!product) return;
 
+  const wishlist = JSON.parse(
+    localStorage.getItem(wishlistKey) || "[]"
+  );
+
+  const exists = wishlist.some(
+    (item: any) => item.id === product.id
+  );
+
+  if (exists) {
+    const updated = wishlist.filter(
+      (item: any) => item.id !== product.id
+    );
+
+    localStorage.setItem(wishlistKey,
+      JSON.stringify(updated)
+    );
+
+    setIsWishlisted(false);
+
+    toast.info("Removed from wishlist");
+  } else {
+    wishlist.push(product);
+
+    localStorage.setItem(wishlistKey,
+      JSON.stringify(wishlist)
+    );
+
+    setIsWishlisted(true);
+
+    toast.success("Added to wishlist");
+  }
+}
   return (
     <section className="min-h-screen bg-[#050816] py-20 text-white">
       <Container>
@@ -127,20 +180,22 @@ export default function ProductPage() {
               </button>
 
               <button
-                className="
-                  rounded-xl
-                  border
-                  border-white/10
-                  px-8
-                  py-4
-                  transition-all
-                  duration-300
-                  hover:border-blue-500
-                  hover:bg-white/5
-                "
-              >
-                Add to Wishlist
-              </button>
+  onClick={handleWishlist}
+  className={`
+    rounded-xl
+    px-8
+    py-4
+    transition-all
+    duration-300
+    ${
+      isWishlisted
+        ? "bg-pink-600 text-white"
+        : "border border-white/10 hover:border-blue-500 hover:bg-white/5"
+    }
+  `}
+>
+  {isWishlisted ? "♥ Wishlisted" : "Add to Wishlist"}
+</button>
             </div>
 
             {/* Creator Card */}

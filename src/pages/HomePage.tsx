@@ -7,7 +7,7 @@ import FeaturedProducts from "../components/marketplace/FeaturedProducts";
 import WhyArc from "../components/marketplace/WhyArc";
 import CTA from "../components/marketplace/CTA";
 import Footer from "../components/marketplace/Footer";
-
+import AchievementNFTs from "../components/home/AchievementNFTs";
 export default function HomePage() {
   return (
     <div className="bg-[#050816] text-white">
@@ -21,9 +21,11 @@ export default function HomePage() {
 
       <FeaturedProducts />
 
-      <WhyArc />
+<AchievementNFTs />
 
-      <CTA />
+<WhyArc />
+
+<CTA />
 
       <Footer />
     </div>

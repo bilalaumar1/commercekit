@@ -7,12 +7,20 @@ export default function MarketplacePreview() {
   const [search, setSearch] = useState("");
 
   const filtered = useMemo(() => {
-    return products
-      .filter((product) =>
-        product.title.toLowerCase().includes(search.toLowerCase())
-      )
-      .slice(0, 2);
-  }, [search]);
+  const companion = products.find(
+    (p) => p.id === "arc-house-companion"
+  );
+
+  const others = products
+    .filter(
+      (p) =>
+        p.id !== "arc-house-companion" &&
+        p.title.toLowerCase().includes(search.toLowerCase())
+    )
+    .slice(0, 1);
+
+  return companion ? [companion, ...others] : others;
+}, [search]);
 
   return (
     <div className="relative flex items-center justify-center">
@@ -60,9 +68,17 @@ export default function MarketplacePreview() {
                 key={product.id}
                 className="rounded-2xl border border-white/10 bg-white/5 p-4"
               >
-                <h4 className="font-semibold text-white">
-                  {product.title}
-                </h4>
+                <div className="flex items-center justify-between">
+  <h4 className="font-semibold text-white">
+    {product.title}
+  </h4>
+
+  {product.id === "arc-house-companion" && (
+    <span className="rounded-full bg-yellow-500/20 px-2 py-1 text-xs font-semibold uppercase tracking-wide text-yellow-300">
+      Featured
+    </span>
+  )}
+</div>
 
                 <p className="mt-1 text-sm text-gray-400">
                   {product.category}

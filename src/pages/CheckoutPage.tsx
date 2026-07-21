@@ -2,7 +2,7 @@ import { savePurchase } from "../lib/storage";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAccount, useWalletClient } from "wagmi";
-
+import { toast } from "sonner";
 import { products } from "../lib/products";
 import Container from "../components/layout/Container";
 import {
@@ -46,7 +46,7 @@ const currentProduct = product;
 
   async function handlePurchase() {
   if (!walletClient || !address) {
-    alert("Please connect your wallet.");
+    toast.error("Please connect your wallet first.");
     return;
   }
 
@@ -68,10 +68,15 @@ price: currentProduct.price,
     });
 
     setTxHash(hash);
-    setShowSuccess(true);
+
+toast.success("Purchase completed successfully!", {
+  description: "Your payment has been confirmed on Arc Testnet.",
+});
+
+setShowSuccess(true);
   } catch (err) {
     console.error(err);
-    alert("Transaction cancelled.");
+    toast.error("Transaction cancelled.");
   } finally {
     setIsLoading(false);
   }

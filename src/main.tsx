@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
+import { Toaster } from "sonner";
 import "@rainbow-me/rainbowkit/styles.css";
 import "./index.css";
 
@@ -19,6 +19,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider>
           <AppRouter />
+          <Toaster
+            position="top-right"
+            richColors
+            closeButton
+            theme="dark"
+          />
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>

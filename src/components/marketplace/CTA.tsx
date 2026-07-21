@@ -20,7 +20,7 @@ export default function CTA() {
             <h2 className="mt-6 text-5xl font-bold text-white leading-tight">
               Ready to Explore
               <br />
-              Arc Commerce?
+              CommerceKit?
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-400">

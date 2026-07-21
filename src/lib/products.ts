@@ -20,7 +20,16 @@ export const products = [
     rating: "4.8",
     description:
       "Premium responsive UI kit with modern components for SaaS and Web3 applications.",
+
     downloadUrl: "/downloads/website-ui-kit.zip",
+
+    assets: [
+      {
+        name: "Source Code",
+        type: "ZIP",
+        url: "/downloads/website-ui-kit.zip",
+      },
+    ],
   },
 
   {
@@ -70,4 +79,15 @@ export const products = [
       "Modern workspace to organize projects, tasks and team collaboration.",
     downloadUrl: "/downloads/productivity-suite.zip",
   },
+  {
+  id: "arc-house-companion",
+  image: "/products/arc-house-companion.png",
+  title: "Arc House Companion",
+  category: "Education",
+  price: "0.1 USDC",
+  rating: "5.0",
+  description:
+    "A complete companion for the Arc ecosystem. Learn how Arc House works, understand contribution rules, explore ecosystem resources, and start your journey toward becoming an Architect.",
+  downloadUrl: "https://arc-house-companion.vercel.app/",
+},
 ];

@@ -39,7 +39,7 @@ export default function WhyArc() {
         <div className="mx-auto max-w-3xl text-center">
 
           <p className="text-2xl font-extrabold uppercase tracking-[0.2em] text-blue-400">
-  WHY ARC COMMERCE
+  WHY CommerceKit
 </p>
 
           <h2 className="mt-4 text-5xl font-bold text-white">
@@ -49,7 +49,7 @@ export default function WhyArc() {
           </h2>
 
           <p className="mt-6 text-lg text-gray-400">
-            Arc Commerce combines wallet-native payments,
+            CommerceKit combines wallet-native payments,
             instant ownership and a premium marketplace
             experience designed specifically for the Arc
             ecosystem.

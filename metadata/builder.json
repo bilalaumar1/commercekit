@@ -1,0 +1,15 @@
+{
+  "name": "CommerceKit Builder",
+  "description": "Awarded to users who purchase 5 products on CommerceKit.",
+  "image": "https://raw.githubusercontent.com/bilalaumar1/commercekit-nfts/main/builder.png",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Epic"
+    },
+    {
+      "trait_type": "Requirement",
+      "value": "5 Products"
+    }
+  ]
+}
