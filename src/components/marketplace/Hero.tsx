@@ -22,7 +22,7 @@ export default function Hero() {
             </p>
 
             <h1 className="max-w-5xl text-6xl font-bold leading-tight text-white">
-              The Marketplace Built
+            The Marketplace Built
               <br />
               for the Arc Ecosystem
             </h1>
