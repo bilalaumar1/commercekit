@@ -12,7 +12,7 @@ export default function Logo() {
         className="h-16 w-16 md:h-24 md:w-24 object-contain shrink-0"
       />
 
-      <div className="leading-tight">
+      <div className="leading-tight -ml-2">
         <h1 className="text-lg md:text-2xl font-bold text-white">
           CommerceKit
         </h1>
